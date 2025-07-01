@@ -14,7 +14,7 @@ class UserSerializers(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
-    
+ 
 
 class NoteSerializers(serializers.ModelSerializer):
     class Meta:

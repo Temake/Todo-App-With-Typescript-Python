@@ -1,9 +1,9 @@
 import { useState } from "react";
-import api from "../api";
+import api from "../../../../frontend/template/src/api";
 import { useNavigate } from "react-router-dom";
-import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../../../frontend/template/src/constants";
 import "../styles/Form.css";
-function Form(route, method) {
+function Form({ route, method }) {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -38,15 +38,17 @@ function Form(route, method) {
         placeholder="Username"
         type="text"
         onChange={(e) => setUserName(e.target.value)}
-      ></input>
+      />
       <input
         className="form-input"
         value={password}
         placeholder="Password"
         type="password"
         onChange={(e) => setPassword(e.target.value)}
-      ></input>
-      <button className="form-button" type="button"></button>
+      />
+      <button className="form-button" type="submit" disabled={loading}>
+        {loading ? "Processing..." : name}
+      </button>
     </form>
   );
 }

@@ -1,9 +1,9 @@
 import React from "react";
 import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
-import Login from "./pages/login";
-import Register from "./pages/Register";
-import Home from "./pages/home";
-import Notfound from "./pages/NotFound";
+import Login from "../../../frontendd/todoit/src/pages/login";
+import Register from "../../../frontendd/todoit/src/pages/Register";
+import Home from "../../../frontendd/todoit/src/pages/home";
+import Notfound from "../../../frontendd/todoit/src/pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function Logout() {
@@ -20,18 +20,18 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path="/"
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<RegisterAndLogout />} />
+        <Route path="/logout" element={<Logout />} />
+        <Route 
+          path="/" 
           element={
             <ProtectedRoute>
               <Home />
             </ProtectedRoute>
-          }
+          } 
         />
-        <Route path="/login" element={<Login />} />
-        <Route path="/logout" element={<Logout />} />
-        <Route path="/register" element={<Register />} />
-        <Route path= "*" element ={<Notfound/>}/>
+        <Route path="*" element={<Notfound />} />
       </Routes>
     </BrowserRouter>
   );
