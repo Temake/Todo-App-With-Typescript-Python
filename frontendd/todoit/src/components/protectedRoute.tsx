@@ -4,27 +4,25 @@ import api from "../../api";
 import { REFRESH_TOKEN, ACCESS_TOKEN } from "../../constant";
 import React, { useEffect, useState } from "react";
 
+function ProtectedRoute({ children }: { children: React.ReactNode }) {
+  const [isAuthorized, setAuthorization] = useState<boolean | null>(null);
 
-function ProtectedRoute({ children }:{children:React.ReactNode}) {
-  const [isAuthorized, setAuthorization] = useState(null);
-
-  
-   useEffect(() => {
-    auth().catch(() => setAuthorization(false))
-},[])
-
+  useEffect(() => {
+    auth().catch(() => setAuthorization(false));
+  }, []);
+  interface AccesToken {
+    access: string;
+  }
   const refreshToken = async () => {
     const refreshToken = localStorage.getItem(REFRESH_TOKEN);
     try {
-      const res = await api.post("api/token/refresh/", {
+      const res = await api.post<AccesToken>("api/token/refresh/", {
         refresh: refreshToken,
       });
-      if (res.status === 200){
-        localStorage.setItem(ACCESS_TOKEN, res.data.access)
-        setAuthorization(true)
-      }
-      else{ 
-        
+      if (res.status === 200) {
+        localStorage.setItem(ACCESS_TOKEN, res.data.access);
+        setAuthorization(true);
+      } else {
         setAuthorization(false);
       }
     } catch (error) {
@@ -38,7 +36,12 @@ function ProtectedRoute({ children }:{children:React.ReactNode}) {
       setAuthorization(false);
       return;
     }
-    const decoded = jwtDecode(token);
+    type JwtPayload = {
+      exp: number;
+      [key: string]: string | number | boolean | undefined;
+    };
+
+    const decoded = jwtDecode<JwtPayload>(token);
     const tokenExpiration = decoded.exp;
     const now = Date.now() / 1000;
 

@@ -1,10 +1,10 @@
 import React from "react";
 import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
-import Login from "../../../frontendd/todoit/src/pages/login";
+import Login from "./pages/login";
 import Register from "../../../frontendd/todoit/src/pages/Register";
 import Home from "../../../frontendd/todoit/src/pages/home";
-import Notfound from "../../../frontendd/todoit/src/pages/NotFound";
-import ProtectedRoute from "./components/ProtectedRoute";
+import Notfound from "./pages/NotFound";
+import ProtectedRoute from "./components/protectedRoute";
 
 function Logout() {
   localStorage.clear();

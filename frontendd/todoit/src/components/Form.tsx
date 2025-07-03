@@ -1,16 +1,20 @@
 import { useState } from "react";
-import api from "../../../../frontend/template/src/api";
+import api from "../../api";
 import { useNavigate } from "react-router-dom";
-import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../../../frontend/template/src/constants";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../constant";
 import "../styles/Form.css";
-function Form({ route, method }) {
+interface FormProps {
+  route: string;
+  method: "login" | "register";
+}
+function Form({ route, method } : FormProps) {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const name = method === "login" ? "Login" : "Register";
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:React.FormEvent) => {
     setLoading(true);
     e.preventDefault();
     try {
